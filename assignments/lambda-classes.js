@@ -26,7 +26,17 @@ class Instructor extends Person {
     grade(student, subject) {
         console.log(`${student.name} receives a perfect score on ${subject}`);
     }
-}
+    addOrSub(student){
+        let previous = student.grade;
+        let minGrade = 1;
+        let maxGrade = 100 - student.grade;
+        let random = Math.round((Math.random() - 0.5) * (maxGrade - minGrade) + minGrade);
+        let final = `${this.name} set ${student.name}'s grade to ${student.grade + random} with a difference of ${random}, ${student.name} had a previous grade of ${previous}`
+        student.grade = student.grade + random
+        return final
+    }
+    }
+
 
 class Student extends Person {
     constructor(atts) {
@@ -34,6 +44,7 @@ class Student extends Person {
         this.previousBackground = atts.previousBackground;
         this.className = atts.className;
         this.favSubjects = atts.favSubjects;
+        this.grade = atts.grade;
     }
     listSubjects() {
         for (let i = 0; i < this.favSubjects.length; i++){
@@ -45,6 +56,13 @@ class Student extends Person {
     }
     sprintChallenge(subject) {
         console.log(`${this.name} has begun spring challenge on ${subject}`);
+    }
+    graduate() {
+        if(this.grade >= 70) {
+            console.log(`${this.name} has just graduated from ${this.className} with a grade of ${this.grade}!`)
+        }else{
+            console.log(`Sorry ${this.name}, but you need to study some more!`)
+        }
     }
 }
 
@@ -61,6 +79,7 @@ class ProjectManager extends Instructor {
     debugsCode(student, subject) {
         console.log(`${this.name} debugs ${student.name}'s code on ${subject}`);
     }
+    
 }
 
 
@@ -94,6 +113,7 @@ const ap = new Student({
     gender: 'Male',
     previousBackground: 'Java',
     className: 'WEB18',
+    grade: 50,
     favSubjects: [
     'Java', 
     'CSS', 
@@ -110,6 +130,7 @@ const kitten = new Student({
     gender: 'female',
     previousBackground: 'Balls of string',
     className: 'fluffy18',
+    grade: 40,
     favSubjects: [
     'Food',
     'string',
@@ -152,8 +173,6 @@ console.log(josh.specialty);
 console.log(josh.favLanguage);
 console.log(josh.catchPhrase);
 
-
-
 ali.speak();
 ali.demo('CSS');
 ali.grade(kitten, 'Yarn');
@@ -171,7 +190,6 @@ ap.listSubjects();
 console.log(ap.previousBackground);
 console.log(ap.className);
 console.log(ap.age);
-
 
 
 kitten.speak();
@@ -208,3 +226,12 @@ console.log(ramenNoodle.catchPhrase);
 console.log(ramenNoodle.favLanguage);
 console.log(ramenNoodle.favInstructor);
 console.log(ramenNoodle.gradClassName);
+
+
+//Stretch methods
+console.log(josh.addOrSub(ap));
+console.log(ap.grade)
+ap.graduate()
+console.log(josh.addOrSub(kitten))
+console.log(kitten.grade)
+kitten.graduate()
